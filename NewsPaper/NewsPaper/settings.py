@@ -73,20 +73,20 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # для почты Yandex.ru
 # EMAIL_HOST = 'smtp.yandex.ru'
 # EMAIL_PORT = 465
-# EMAIL_HOST_USER = "ewgenij1976@yandex.ru"
-# EMAIL_HOST_PASSWORD = "xlstoychwkbyekik"
+# EMAIL_HOST_USER = "ewgenij****@yandex.ru"
+# EMAIL_HOST_PASSWORD = "****"
 # EMAIL_USE_TLS = False
 # EMAIL_USE_SSL = True
-# DEFAULT_FROM_EMAIL = "ewgenij1976@yandex.ru"
+# DEFAULT_FROM_EMAIL = "ewgenij****6@yandex.ru"
 
 # Для почты Mail.ru
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "ewgenij_sf@mail.ru"
-EMAIL_HOST_PASSWORD = "ijFssQeXQEF9Sdpgb1en"
+EMAIL_HOST_USER = "ewgenij****@mail.ru"
+EMAIL_HOST_PASSWORD = "****"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = "ewgenij_sf@mail.ru"
+DEFAULT_FROM_EMAIL = "ewgenij****@mail.ru"
 
 
 MIDDLEWARE = [
