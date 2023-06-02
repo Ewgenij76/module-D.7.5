@@ -1,0 +1,83 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block title %} Новости {% endblock title%}
+
+{% block content %}
+
+
+
+{% if news %}
+<h5>Количество новостей на этой странице: {{news|length}}</h5>
+<h5 style="text-align: left"><a href="{% url 'search' %}">Поиск</a></h5>
+<h5 style="text-align: left"><a href="{% url 'subscriptions' %}">Подписка</a></h5>
+{% if perms.news.add_post %}
+    <h5 style="text-align: left"><a href="{% url 'post_create' %}">Добавить пост</a></h5>
+    {% endif %}
+<hr>
+
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Текст</td>
+               <td>Дата публикации</td>
+               <td>Категория</td>
+               <td>Тема публикации</td>
+               <td>Автор публикации</td>
+               <td>Рейтинг публикации</td>
+           </tr>
+           {% for onenews in news %}
+           <tr>
+
+               <td><a href="{% url 'post_detail' onenews.id %}">{{onenews.title|censor}}</a></td>
+               <td>{{ onenews.text|truncatechars:15|censor }}</td>
+               <td>{{onenews.time_create|date:'d M Y'}}</td>
+               <td>{{ onenews.get_post_type_display }}</td>
+               <td>
+                    {% for cat in onenews.categories.all %}
+                    {{ cat.name }}
+                    {% endfor %}
+               </td>
+               <td>{{ onenews.author }} </td>
+               <td>{{ onenews.rating }} </td>
+               {% if perms.news.change_post %}
+               <td><a href="{% url 'post_edit' pk=onenews.pk %}">Изменить</a>/<a href="{% url 'post_delete' pk=onenews.pk %}">Удалить</a></td>
+               {% endif %}
+               {% endfor %}
+
+           </tr>
+       </table>
+        {% for cat in post.category.all %}
+        {{ cat.name }}
+        {% endfor %}
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+{% if is_paginated %}
+        {% if page_obj.has_previous %}
+            {% if page_obj.previous_page_number == 2 %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+            {% else %}
+                <a href="?page=1">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a>{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            {% if page_obj.next_page_number == page_obj.paginator.num_pages %}
+                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            {% else %}
+                <a href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+{% endblock content %}

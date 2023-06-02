@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+
+{% block title %} Поиск {% endblock title %}
+{% block content %}
+{% load custom_filters %}
+<form method='GET'>
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+    {% for onenews in filter.qs %}
+        <br>
+        <a href="{% url 'post_detail' onenews.id %}">{{onenews.title|censor}}</a>
+
+    {% endfor %}
+<br>
